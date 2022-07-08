@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		6247AA5B2878738F00726476 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247AA5A2878738F00726476 /* DetailView.swift */; };
+		6247AA5D2878862300726476 /* MovieDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6247AA5C2878862300726476 /* MovieDetail.swift */; };
 		625B0BD62873AFEC00D8B862 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 625B0BD52873AFEC00D8B862 /* Movie.swift */; };
 		62699270286A78B1008B0312 /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 6269926F286A78B1008B0312 /* SDWebImageSwiftUI */; };
 		62699272286A8F79008B0312 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62699271286A8F79008B0312 /* Service.swift */; };
@@ -24,6 +25,7 @@
 
 /* Begin PBXFileReference section */
 		6247AA5A2878738F00726476 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		6247AA5C2878862300726476 /* MovieDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetail.swift; sourceTree = "<group>"; };
 		625B0BD52873AFEC00D8B862 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		62699271286A8F79008B0312 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		62699273286A9780008B0312 /* Movies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movies.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				62699273286A9780008B0312 /* Movies.swift */,
 				625B0BD52873AFEC00D8B862 /* Movie.swift */,
 				6247AA5A2878738F00726476 /* DetailView.swift */,
+				6247AA5C2878862300726476 /* MovieDetail.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -179,6 +182,7 @@
 				62699272286A8F79008B0312 /* Service.swift in Sources */,
 				62DE32DC2863D825007C3EA0 /* MovieApp.swift in Sources */,
 				62DE32F92863DD01007C3EA0 /* LottieView.swift in Sources */,
+				6247AA5D2878862300726476 /* MovieDetail.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

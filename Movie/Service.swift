@@ -15,7 +15,7 @@ class Service : ObservableObject{
     //typealias moviesCallBack = (_ response:Movies?, _ status: Bool, _ message:String) -> Void
     //var callBack:moviesCallBack?
     @Published var listMovies = [Movie]()
-    @Published var movie = [Movie]()
+    @Published var movie = [MovieDetail]()
     @Published var error = false
     @Published var page = 1
     
@@ -51,13 +51,20 @@ class Service : ObservableObject{
         let relativePath = "movie/\(id)?api_key=\(apikey)&language=es&countries=CO"
         AF.request(self.url + relativePath)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: Movie.self){response in
+            .responseDecodable(of: MovieDetail.self){response in
                 guard let data = response.data else{
                     self.error=true
                     return
                 }
                 do{
-                    
+                    let res = try JSONDecoder().decode(MovieDetail.self, from: data)
+                    if self.movie.count > 0{
+                    self.movie[0]=res
+                    }else{
+                        self.movie.append(res)
+                    }
+                }catch{
+                    self.error = true
                 }
             }
     }
