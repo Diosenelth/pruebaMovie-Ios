@@ -14,7 +14,9 @@ struct DetailView: View {
     var body: some View {
         ScrollView(.vertical){
             VStack{
-                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.backdropPath)"))
+                if movie.backdropPath != nil{
+                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.backdropPath!)"))
+                }
                 HStack{
                     WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)"))
                         .resizable()

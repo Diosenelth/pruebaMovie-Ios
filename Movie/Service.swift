@@ -12,8 +12,6 @@ import SwiftUI
 class Service : ObservableObject{
     fileprivate var url = "https://api.themoviedb.org/3/"
     let apikey = "cd221c9c9cdc3e0f8e4969a04e9dfc45"
-    //typealias moviesCallBack = (_ response:Movies?, _ status: Bool, _ message:String) -> Void
-    //var callBack:moviesCallBack?
     @Published var listMovies = [Movie]()
     @Published var movie = [MovieDetail]()
     @Published var error = false
@@ -41,8 +39,8 @@ class Service : ObservableObject{
                         self.page = self.page + 1
                     }
                 }catch{
+                    print("Error: \(error) page: \(self.page)")
                     self.error = true
-                    //self.callBack?(nil, false, error.localizedDescription)
                 }
             }
     }
@@ -59,7 +57,7 @@ class Service : ObservableObject{
                 do{
                     let res = try JSONDecoder().decode(MovieDetail.self, from: data)
                     if self.movie.count > 0{
-                    self.movie[0]=res
+                        self.movie[0]=res
                     }else{
                         self.movie.append(res)
                     }
@@ -68,8 +66,4 @@ class Service : ObservableObject{
                 }
             }
     }
-    
-    /*func completionHandler(callBack: @escaping moviesCallBack){
-     self.callBack = callBack
-     }*/
 }

@@ -15,7 +15,6 @@ struct ContentView: View {
     //@State var chan = true
     @ObservedObject var obs = Service()
     @State var page: Int = 1
-    @State var countList: Int = 0
     let columns = [
         GridItem(.adaptive(minimum: 120, maximum: 120)),
         //GridItem(.fixed(100)),
@@ -43,10 +42,9 @@ struct ContentView: View {
                             }
                             .padding(10)
                             .onAppear{
-                                countList = countList + 1
-                                let coun = countList
-                                //print("Page: \(obs.page) Count: \(coun) movies \(obs.listMovies.count)")
-                                if coun>=obs.listMovies.count{
+                                let con = obs.listMovies.count - 1
+                                let id = obs.listMovies[con].id
+                                if id == post.id{
                                     Task{
                                         await obs.getPopularMovies()
                                     }
