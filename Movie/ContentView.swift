@@ -12,35 +12,64 @@ import SwiftyJSON
 
 
 struct ContentView: View {
-    @State var chan = true
-    @State var moviesRes : Movies?
+    //@State var chan = true
     @ObservedObject var obs = Service()
+    @State var page: Int = 1
+    @State var countList: Int = 0
+    let columns = [
+        GridItem(.adaptive(minimum: 120, maximum: 120)),
+        //GridItem(.fixed(100)),
+    ]
     
     var body: some View {
         /*LottieView(change: chan)
-            .onAppear{
-                Task{
-                    await obs.getPopularMovies(page: "1")
+         .onAppear{
+         Task{
+         await obs.getPopularMovies(page: "1")
+         }
+         }*/
+        NavigationView{
+            ScrollView(.vertical){
+                LazyVGrid(columns: columns){
+                    ForEach(obs.listMovies, id: \.id){ post in
+                        NavigationLink(destination: DetailView(movie: post)){
+                            VStack(alignment: .center){
+                                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(post.posterPath)"))
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 110.0, alignment: .center)
+                                Text(post.title)
+                                    .frame(width: 110.0, height: 50.0)
+                            }
+                            .padding(10)
+                            .onAppear{
+                                countList = countList + 1
+                                let coun = countList
+                                //print("Page: \(obs.page) Count: \(coun) movies \(obs.listMovies.count)")
+                                if coun>=obs.listMovies.count{
+                                    Task{
+                                        await obs.getPopularMovies()
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-            }*/
-        List{
-            ForEach(obs.listMovies, id: \.id){ post in
-                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(post.posterPath)"))
-                    .resizable()
-                    .scaledToFit()
-                Text(post.title)
             }
+            .navigationTitle("Movies")
+            
         }
         .onAppear{
             Task{
-                await obs.getPopularMovies(page: "1")
+                await obs.getPopularMovies()
             }
         }
+        
     }
     
-    func change(){
-        chan.toggle()
-    }
+    /*func change(){
+     chan.toggle()
+     }*/
     
 }
 

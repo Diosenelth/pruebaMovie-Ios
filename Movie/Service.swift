@@ -7,6 +7,7 @@
 
 import Foundation
 import Alamofire
+import SwiftUI
 
 class Service : ObservableObject{
     fileprivate var url = "https://api.themoviedb.org/3/"
@@ -14,10 +15,12 @@ class Service : ObservableObject{
     //typealias moviesCallBack = (_ response:Movies?, _ status: Bool, _ message:String) -> Void
     //var callBack:moviesCallBack?
     @Published var listMovies = [Movie]()
+    @Published var movie = [Movie]()
     @Published var error = false
+    @Published var page = 1
     
     
-    func getPopularMovies(page: String) async{
+    func getPopularMovies() async{
         let relativePath = "movie/popular?page=\(page)&api_key=\(apikey)&language=es&countries=CO"
         AF.request(self.url + relativePath)
             .validate(statusCode: 200..<300)
@@ -28,7 +31,15 @@ class Service : ObservableObject{
                 }
                 do{
                     let response = try JSONDecoder().decode(Movies.self, from: data)
-                    self.listMovies = response.results
+                    if self.listMovies.count > 0 {
+                        response.results.forEach({ movie in
+                            self.listMovies.append(movie)
+                        })
+                        self.page = self.page + 1
+                    }else{
+                        self.listMovies = response.results
+                        self.page = self.page + 1
+                    }
                 }catch{
                     self.error = true
                     //self.callBack?(nil, false, error.localizedDescription)
@@ -36,7 +47,22 @@ class Service : ObservableObject{
             }
     }
     
+    func getMovie(id:String) async{
+        let relativePath = "movie/\(id)?api_key=\(apikey)&language=es&countries=CO"
+        AF.request(self.url + relativePath)
+            .validate(statusCode: 200..<300)
+            .responseDecodable(of: Movie.self){response in
+                guard let data = response.data else{
+                    self.error=true
+                    return
+                }
+                do{
+                    
+                }
+            }
+    }
+    
     /*func completionHandler(callBack: @escaping moviesCallBack){
-        self.callBack = callBack
-    }*/
+     self.callBack = callBack
+     }*/
 }
