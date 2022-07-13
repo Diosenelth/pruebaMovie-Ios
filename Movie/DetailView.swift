@@ -41,6 +41,8 @@ struct DetailView: View {
             Task{
                 await obs.getMovie(id:"\(movie.id)")
             }
+            obs.loading = true
+            obs.error = false
         }
     }
 }

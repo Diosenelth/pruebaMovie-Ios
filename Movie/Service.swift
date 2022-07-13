@@ -15,8 +15,8 @@ class Service : ObservableObject{
     @Published var listMovies = [Movie]()
     @Published var movie = [MovieDetail]()
     @Published var error = false
+    @Published var loading = true
     @Published var page = 1
-    
     
     func getPopularMovies() async{
         let relativePath = "movie/popular?page=\(page)&api_key=\(apikey)&language=es&countries=CO"
@@ -38,6 +38,7 @@ class Service : ObservableObject{
                         self.listMovies = response.results
                         self.page = self.page + 1
                     }
+                    self.loading = false
                 }catch{
                     print("Error: \(error) page: \(self.page)")
                     self.error = true

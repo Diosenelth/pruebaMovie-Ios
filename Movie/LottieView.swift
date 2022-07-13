@@ -10,10 +10,11 @@ import SwiftUI
 import Lottie
 
 struct LottieView: UIViewRepresentable {
+    typealias UIViewType = UIView
     var name = "laa"
     var loopMode: LottieLoopMode = .loop
     let animationView = AnimationView()
-    let change:Bool
+    var change:Bool
     
     func makeUIView(context: UIViewRepresentableContext<LottieView>) -> UIView {
         let view = UIView(frame: .zero)
@@ -35,7 +36,7 @@ struct LottieView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIViewType, context: UIViewRepresentableContext<LottieView>) {
-        if !change {
+        if change {
             let animation = Animation.named("error")
             context.coordinator.parent.animationView.animation = animation
             context.coordinator.parent.animationView.play()
