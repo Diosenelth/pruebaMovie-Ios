@@ -41,6 +41,7 @@ struct ContentView: View {
             
             if obs.loading{
                 LoadingView(change: obs.error)
+                    .frame(width: 200, height: 200)
             }
         }
     }
