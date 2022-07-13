@@ -7,7 +7,7 @@
 
 import Foundation
 // MARK: - Result
-struct Movie: Codable {
+struct MovieModel: Codable {
     let adult: Bool
     let backdropPath: String?
     let genreIDS: [Int]

@@ -9,7 +9,7 @@ import Foundation
 
 
 // MARK: - PlaylistItemsModel
-struct MovieDetail: Codable {
+struct MovieDetailModel: Codable {
     let adult: Bool
     let backdropPath: String
     let belongsToCollection: BelongsToCollection!

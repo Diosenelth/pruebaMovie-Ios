@@ -8,9 +8,9 @@
 import Foundation
 
 // MARK: - PlaylistItemsModel
-struct Movies: Codable {
+struct MoviesModel: Codable {
     let page: Int
-    let results: [Movie]
+    let results: [MovieModel]
     let totalPages, totalResults: Int
 
     enum CodingKeys: String, CodingKey {

@@ -9,7 +9,7 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct DetailView: View {
-    var movie: Movie
+    var movie: MovieModel
     @ObservedObject var obs = Service()
     var body: some View {
         ScrollView(.vertical){

@@ -12,8 +12,8 @@ import SwiftUI
 class Service : ObservableObject{
     fileprivate var url = "https://api.themoviedb.org/3/"
     let apikey = "cd221c9c9cdc3e0f8e4969a04e9dfc45"
-    @Published var listMovies = [Movie]()
-    @Published var movie = [MovieDetail]()
+    @Published var listMovies = [MovieModel]()
+    @Published var movie = [MovieDetailModel]()
     @Published var error = false
     @Published var loading = true
     @Published var page = 1
@@ -22,13 +22,13 @@ class Service : ObservableObject{
         let relativePath = "movie/popular?page=\(page)&api_key=\(apikey)&language=es&countries=CO"
         AF.request(self.url + relativePath)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: Movies.self){ response in
+            .responseDecodable(of: MoviesModel.self){ response in
                 guard let data = response.data else{
                     self.error = true
                     return
                 }
                 do{
-                    let response = try JSONDecoder().decode(Movies.self, from: data)
+                    let response = try JSONDecoder().decode(MoviesModel.self, from: data)
                     if self.listMovies.count > 0 {
                         response.results.forEach({ movie in
                             self.listMovies.append(movie)
@@ -50,13 +50,13 @@ class Service : ObservableObject{
         let relativePath = "movie/\(id)?api_key=\(apikey)&language=es&countries=CO"
         AF.request(self.url + relativePath)
             .validate(statusCode: 200..<300)
-            .responseDecodable(of: MovieDetail.self){response in
+            .responseDecodable(of: MovieDetailModel.self){response in
                 guard let data = response.data else{
                     self.error=true
                     return
                 }
                 do{
-                    let res = try JSONDecoder().decode(MovieDetail.self, from: data)
+                    let res = try JSONDecoder().decode(MovieDetailModel.self, from: data)
                     if self.movie.count > 0{
                         self.movie[0]=res
                     }else{
