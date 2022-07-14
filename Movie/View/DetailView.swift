@@ -10,7 +10,7 @@ import SDWebImageSwiftUI
 
 struct DetailView: View {
     var movie: MovieModel
-    @ObservedObject var obs = Service()
+    @ObservedObject var obs = ServiceHome()
     var body: some View {
         ScrollView(.vertical){
             VStack{
@@ -18,17 +18,19 @@ struct DetailView: View {
                     WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.backdropPath!)"))
                 }
                 HStack{
-                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath)"))
+                    if movie.posterPath != nil{
+                    WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(movie.posterPath!)"))
                         .resizable()
                         .scaledToFit()
                         .frame(height: 170, alignment: .leading)
+                    }
                     Text(movie.title)
                         .frame(width: 140, alignment: .center)
                 }
                 .padding()
                 .frame(alignment: .leading)
                 Spacer()
-                Text(movie.overview)
+                Text(movie.overview ?? "")
                     .frame(width: 250,alignment: .center)
                 Spacer()
                 if $obs.movie.count > 0{

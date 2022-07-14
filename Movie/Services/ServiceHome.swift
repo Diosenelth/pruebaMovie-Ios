@@ -5,13 +5,10 @@
 //  Created by Diosenelth De la hoz Fonseca on 27/06/22.
 //
 
-import Foundation
 import Alamofire
 import SwiftUI
 
-class Service : ObservableObject{
-    fileprivate var url = "https://api.themoviedb.org/3/"
-    let apikey = "cd221c9c9cdc3e0f8e4969a04e9dfc45"
+class ServiceHome : ObservableObject{
     @Published var listMovies = [MovieModel]()
     @Published var movie = [MovieDetailModel]()
     @Published var error = false
@@ -19,8 +16,9 @@ class Service : ObservableObject{
     @Published var page = 1
     
     func getPopularMovies() async{
-        let relativePath = "movie/popular?page=\(page)&api_key=\(apikey)&language=es&countries=CO"
-        AF.request(self.url + relativePath)
+        error=false
+        let relativePath = "movie/popular?page=\(page)&api_key=\(Constants.apiKey)&language=es&countries=CO"
+        AF.request(Constants.url + relativePath)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: MoviesModel.self){ response in
                 guard let data = response.data else{
@@ -47,8 +45,9 @@ class Service : ObservableObject{
     }
     
     func getMovie(id:String) async{
-        let relativePath = "movie/\(id)?api_key=\(apikey)&language=es&countries=CO"
-        AF.request(self.url + relativePath)
+        error=false
+        let relativePath = "movie/\(id)?api_key=\(Constants.apiKey)&language=es&countries=CO"
+        AF.request(Constants.url + relativePath)
             .validate(statusCode: 200..<300)
             .responseDecodable(of: MovieDetailModel.self){response in
                 guard let data = response.data else{

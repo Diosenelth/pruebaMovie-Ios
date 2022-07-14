@@ -11,15 +11,16 @@ import SDWebImageSwiftUI
 
 struct MovieView: View{
     var post: MovieModel
-    var obs: Service
     
     var body: some View {
         ZStack{
             VStack(alignment: .center){
-                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(post.posterPath)"))
+                if post.posterPath != nil{
+                WebImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(post.posterPath!)"))
                     .resizable()
                     .scaledToFit()
                     .frame(width: 110.0, alignment: .center)
+                }
                 HStack{
                     ZStack(alignment: .leading){
                         Circle()
@@ -42,16 +43,5 @@ struct MovieView: View{
             }
         }
         .padding(10)
-        .onAppear{
-            let con = obs.listMovies.count - 1
-            let id = obs.listMovies[con].id
-            if id == post.id{
-                Task{
-                    await obs.getPopularMovies()
-                }
-                obs.loading = true
-                obs.error = false
-            }
-        }
     }
 }
